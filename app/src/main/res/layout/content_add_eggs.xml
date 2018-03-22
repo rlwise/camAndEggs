@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="net.mobiledevelopment.camandeggs.AddEggsActivity"
+    tools:showIn="@layout/activity_add_eggs">
+
+    <TextView
+        android:id="@+id/labelIrmaTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/labelIrmaTotal"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelAgnesTotal" />
+
+    <TextView
+        android:id="@+id/labelPetuniaTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/labelPetuniaTotal"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelIrmaTotal" />
+
+    <ImageButton
+        android:id="@+id/buttonAddEggsAgnes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/egg_background"
+        android:elevation="10dp"
+        android:hapticFeedbackEnabled="true"
+        android:longClickable="false"
+        android:soundEffectsEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/egg" />
+
+    <ImageButton
+        android:id="@+id/buttonAddEggsIrma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/egg_background"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAddEggsPetunia"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toEndOf="@+id/buttonAddEggsAgnes"
+        app:srcCompat="@drawable/egg" />
+
+    <ImageButton
+        android:id="@+id/buttonAddEggsPetunia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/egg_background"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/egg" />
+
+    <TextView
+        android:id="@+id/textViewAddEggsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/textViewAddEggsCount"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:tooltipText='"Eggs from all hens"'
+        android:typeface="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/numberAddEggsCount"
+        android:layout_width="129dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="44dp"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.336"
+        app:layout_constraintStart_toEndOf="@+id/textViewAddEggsCount"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddEggsAgnes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/agnes" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddEggsIrma"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:srcCompat="@drawable/irma" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="126dp"
+        android:layout_height="125dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddEggsPetunia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/petunia" />
+
+    <TextView
+        android:id="@+id/labelAgnesTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/labelAgnesTotal"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddEggsCount" />
+
+    <EditText
+        android:id="@+id/editTextIrmaTotal"
+        android:layout_width="129dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextAgnesTotal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextAgnesTotal"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAgnesTotal" />
+
+    <EditText
+        android:id="@+id/editTextPetuniaTotal"
+        android:layout_width="129dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextIrmaTotal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextIrmaTotal"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIrmaTotal" />
+
+    <EditText
+        android:id="@+id/editTextAgnesTotal"
+        android:layout_width="129dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/numberAddEggsCount"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/numberAddEggsCount"
+        app:layout_constraintTop_toBottomOf="@+id/numberAddEggsCount" />
+</android.support.constraint.ConstraintLayout>

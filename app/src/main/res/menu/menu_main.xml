@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.mobiledevelopment.camandeggs.MainActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="2"
+        android:title="Chicken Profiles"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_addEggs"
+        android:orderInCategory="1"
+        android:title="Add Eggs"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_home"
+        android:orderInCategory="0"
+        android:title="Home"
+        app:showAsAction="never"/>
+
+</menu>
