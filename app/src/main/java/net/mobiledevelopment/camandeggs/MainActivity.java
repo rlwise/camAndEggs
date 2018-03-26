@@ -34,13 +34,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Opening Add Eggs View", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                startActivity(new Intent(MainActivity.this, AddEggsActivity.class));
+                Intent addEggsIntent = new Intent(MainActivity.this, AddEggsActivity.class);
+                //startActivity(new Intent(MainActivity.this, AddEggsActivity.class));
+                startActivity(addEggsIntent);
 
             }
         });
 
+
+
     }//end onCreate
 
+    //clear DB button
+
+
+
+    /**
+     * Tool bar options menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -63,10 +74,12 @@ public class MainActivity extends AppCompatActivity {
         else if (id == R.id.action_addEggs) {
             webViewCam.destroy();    //kill the connection to the server
             startActivity(new Intent(MainActivity.this, AddEggsActivity.class));
+            finish();
         }
 
         else if (id == R.id.action_home){
             startActivity(new Intent(MainActivity.this, MainActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

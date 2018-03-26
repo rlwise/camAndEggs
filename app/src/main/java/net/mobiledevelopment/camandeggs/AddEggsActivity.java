@@ -2,20 +2,18 @@ package net.mobiledevelopment.camandeggs;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class AddEggsActivity extends MainActivity {
 
     //declare class variables
-    public TextView eggTotalTextView;
-    public EditText agnesTotalString, irmaTotalString, petuniaTotalString;
+    public TextView eggTotalTextView, agnesTotalTextView, irmaTotalTextView, petuniaTotalTextView;
     public int agnesTotal = 0, irmaTotal = 0, petuniaTotal = 0;
     public int eggTotal = 0;
+
 
 
 
@@ -29,174 +27,179 @@ public class AddEggsActivity extends MainActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //create chickens
-        final Chicken agnesChicken = new Chicken();
-        agnesChicken.breed = "Barred Rock";
-        agnesChicken.name = "Agnes";
-        agnesChicken.setEggs(0);
-
-        final Chicken irmaChicken = new Chicken();
-        irmaChicken.breed = "Buff Orpington";
-        irmaChicken.name = "Irma";
-        irmaChicken.setEggs(0);
-
-        final Chicken petuniaChicken = new Chicken();
-        petuniaChicken.breed = "Buff Orpington";
-        petuniaChicken.name = "Petunia";
-        petuniaChicken.setEggs(0);
+        //Initialize the db
+        final CamAndEggsSQLiteHelper db = new CamAndEggsSQLiteHelper(this);
 
 
+        //clearDB button
+        final Button clearDB = findViewById(R.id.buttonClearDB);
+
+        //name variable from the widgets
+        eggTotalTextView            = findViewById(R.id.numberAddEggsCount);
+        agnesTotalTextView          = findViewById(R.id.textViewAgnesTotal);
+        irmaTotalTextView           = findViewById(R.id.textViewIrmaTotal);
+        petuniaTotalTextView        = findViewById(R.id.textViewPetuniaTotal);
+        ImageButton agnesButton     = findViewById(R.id.buttonAddEggsAgnes);
+        ImageButton irmaButton      = findViewById(R.id.buttonAddEggsIrma);
+        ImageButton petuniaButton   = findViewById(R.id.buttonAddEggsPetunia);
+
+        /*******************
+        *  CRUD operations
+        *
+        * ******************/
+        db.addChicken(new Chicken("Barred Rock", "Agnes", 0));
+        db.addChicken(new Chicken("Buff Orpington", "Irma", 0));
+        db.addChicken(new Chicken("Buff Orpington", "Petunia", 0));
+
+        final Chicken agnes = db.getChicken("Agnes");
+        final Chicken irma = db.getChicken("Irma");
+        final Chicken petunia = db.getChicken("Petunia");
+
+        //initialize egg totals
+        updateEggTotal(agnes, irma, petunia);
 
 
-        //declare all of the egg total fields: Total, Agnes, Irma, and Petunia
-        //Total
-        eggTotalTextView = (TextView) findViewById(R.id.numberAddEggsCount);
-        //eggTotal = Integer.parseInt(eggTotalTextView.getText().toString());
-        eggTotal = agnesChicken.getEggs() + irmaChicken.getEggs();
-
-        //Agnes
-        agnesTotalString = (EditText) findViewById(R.id.editTextAgnesTotal);
-        agnesChicken.setEggs(Integer.parseInt(agnesTotalString.getText().toString()));
-
-        //Irma
-        irmaTotalString = (EditText) findViewById(R.id.editTextIrmaTotal);
-        irmaTotal = Integer.parseInt(irmaTotalString.getText().toString());
-
-        //Petunia
-        petuniaTotalString = (EditText) findViewById(R.id.editTextPetuniaTotal);
-        petuniaTotal = Integer.parseInt(petuniaTotalString.getText().toString());
-
-
-        //Editable Text --EditText-- views
-        //listener for the Agnes total EditText number to change to the value entered when doing keyboard entry
-        agnesTotalString.addTextChangedListener(new TextWatcher() {
+        /********************************
+         *
+         *   Add Egg Buttons Listeners
+         *
+         *********************************/
+        //delete button
+        clearDB.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onClick(View view) {
+                clearDatabase(db, agnes);
+                clearDatabase(db, irma);
+                clearDatabase(db, petunia);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                // set the value of eggTotalTextView
-                try {
-                    agnesTotal = Integer.parseInt(editable.toString());
-                    agnesChicken.setEggs(agnesTotal);
-                    eggTotal = agnesChicken.getEggs() + irmaChicken.getEggs() + petuniaChicken.getEggs();
-                    eggTotalTextView.setText(Integer.toString(eggTotal));
-
-                }
-
-                catch(Exception e){
-                    agnesTotal = agnesChicken.getEggs();
-                }
-
+                //refresh the activity
+                finish();
+                startActivity(getIntent());
             }
         });
 
-        //listener for the Irma total EditText number to change to the value entered when doing keyboard entry
-        irmaTotalString.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                // set the value of eggTotalTextView
-                try {
-                    irmaTotal = Integer.parseInt(editable.toString());
-                    irmaChicken.setEggs(irmaTotal);
-                    eggTotal = agnesChicken.getEggs() + irmaChicken.getEggs() + petuniaChicken.getEggs();
-                    eggTotalTextView.setText(Integer.toString(eggTotal));
-
-                }
-
-                catch(Exception e){
-                    agnesTotal = agnesChicken.getEggs();
-                }
-
-            }
-        });
-
-        //listener for the Petunia total EditText number to change to the value entered when doing keyboard entry
-        petuniaTotalString.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                // set the value of eggTotalTextView
-                try {
-                    petuniaTotal = Integer.parseInt(editable.toString());
-                    petuniaChicken.setEggs(petuniaTotal);
-                    eggTotal = agnesChicken.getEggs() + irmaChicken.getEggs() + petuniaChicken.getEggs();
-                    eggTotalTextView.setText(Integer.toString(eggTotal));
-
-                }
-
-                catch(Exception e){
-                    agnesTotal = agnesChicken.getEggs();
-                }
-
-            }
-        });
-
-        //handler for Agnes button to add eggs to total
-        ImageButton agnesButton = (ImageButton) findViewById(R.id.buttonAddEggsAgnes);
+        /**
+         *  Agnes
+         */
+        //Agnes click to add egg
         agnesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int addAgnesEgg = agnesChicken.getEggs() + 1;
-                agnesChicken.setEggs(addAgnesEgg);
-                agnesTotalString.setText(Integer.toString(agnesChicken.getEggs()));
-                eggTotal = agnesChicken.getEggs() + irmaChicken.getEggs() + petuniaChicken.getEggs();
-                eggTotalTextView.setText(Integer.toString(eggTotal));
+                agnes.setEggs(agnes.getEggs() + 1);
+                db.updateChicken(agnes);
+
+                agnesTotalTextView.setText(Integer.toString(agnes.getEggs()));
+                updateEggTotal(agnes, irma, petunia);
+                Message.message(getApplicationContext(), agnes.getName() + " added an egg!");
             }
         }); //end agnes add egg button
 
-        //handler for Irma button to add eggs to total
-        ImageButton irmaButton = (ImageButton) findViewById(R.id.buttonAddEggsIrma);
+        //Agnes long click to subtract an egg
+        agnesButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //check to make sure eggs are >= 0
+                if(agnes.getEggs() > 0){
+                    agnes.setEggs(agnes.getEggs() - 1);
+                }
+                else{
+                    agnes.setEggs(0);
+                }
+
+                db.updateChicken(agnes);
+                agnesTotalTextView.setText(Integer.toString(agnes.getEggs()));
+                updateEggTotal(agnes, irma, petunia);
+                Message.message(getApplicationContext(), agnes.getName() + " subtracted an egg!");
+                return true;
+            }
+        });
+
+        /**
+         * Irma
+         */
+
         irmaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int addIrmaEgg = irmaChicken.getEggs() + 1;
-                irmaChicken.setEggs(addIrmaEgg);
-                irmaTotalString.setText(Integer.toString(irmaChicken.getEggs()));
-                eggTotal = agnesChicken.getEggs() + irmaChicken.getEggs() + petuniaChicken.getEggs();
-                eggTotalTextView.setText(Integer.toString(eggTotal));
-
+                irma.setEggs(irma.getEggs() + 1);
+                db.updateChicken(irma);
+                irmaTotalTextView.setText(Integer.toString(irma.getEggs()));
+                updateEggTotal(agnes, irma, petunia);
+                Message.message(getApplicationContext(), irma.getName() + " added an egg!");
             }
-        }); //end irma add egg button
+        }); //end agnes add egg button
 
-        //handler for Petunia button to add eggs to total
-        ImageButton petuniaButton = (ImageButton) findViewById(R.id.buttonAddEggsPetunia);
+        irmaButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(irma.getEggs() > 0){
+                    irma.setEggs(irma.getEggs() - 1);
+                }
+                else{
+                    irma.setEggs(0);
+                }
+                db.updateChicken(irma);
+                irmaTotalTextView.setText(Integer.toString(irma.getEggs()));
+                updateEggTotal(agnes, irma, petunia);
+                Message.message(getApplicationContext(), irma.getName() + " subtracted an egg!");
+                return true;
+            }
+        });
+
+        /********************************
+         * Petunia
+         ********************************/
         petuniaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int addPetuniaEgg = petuniaChicken.getEggs() + 1;
-                petuniaChicken.setEggs(addPetuniaEgg);
-                petuniaTotalString.setText(Integer.toString(petuniaChicken.getEggs()));
-                eggTotal = agnesChicken.getEggs() + irmaChicken.getEggs() + petuniaChicken.getEggs();
-                eggTotalTextView.setText(Integer.toString(eggTotal));
+                petunia.setEggs(petunia.getEggs() + 1);
+                db.updateChicken(petunia);
+                petuniaTotalTextView.setText(Integer.toString(petunia.getEggs()));
+                updateEggTotal(agnes, irma, petunia);
+                Message.message(getApplicationContext(), petunia.getName() + " added an egg!");
             }
-        });//end petunia add egg button
+        }); //end agnes add egg button
+
+        petuniaButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(petunia.getEggs() > 0){
+                    petunia.setEggs(petunia.getEggs() - 1);
+                }
+                else{
+                    petunia.setEggs(0);
+                }
+                db.updateChicken(petunia);
+                petuniaTotalTextView.setText(Integer.toString(petunia.getEggs()));
+                updateEggTotal(agnes, irma, petunia);
+                Message.message(getApplicationContext(), petunia.getName() + " subtracted an egg!");
+                return true;
+            }
+        });
+
+    }
+
+    //update the egg totals
+    public void updateEggTotal(Chicken agnes, Chicken irma, Chicken petunia){
+        eggTotal = agnes.getEggs() + irma.getEggs() + petunia.getEggs();
+        eggTotalTextView.setText(Integer.toString(eggTotal));
+
+        //Agnes
+        agnesTotal = agnes.getEggs();
+        agnesTotalTextView.setText(Integer.toString(agnesTotal));
+
+        //Irma
+        irmaTotal = irma.getEggs();
+        irmaTotalTextView.setText(Integer.toString(irmaTotal));
+
+        //Petunia
+        petuniaTotal = petunia.getEggs();
+        petuniaTotalTextView.setText(Integer.toString(petuniaTotal));
+    }
+
+    //clear DB button
+    public void clearDatabase(CamAndEggsSQLiteHelper db, Chicken name){
+        db.deleteChicken(name);
 
     }
 

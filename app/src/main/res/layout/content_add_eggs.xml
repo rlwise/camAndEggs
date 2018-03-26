@@ -148,8 +148,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAddEggsCount" />
 
-    <EditText
-        android:id="@+id/editTextIrmaTotal"
+    <TextView
+        android:id="@+id/textViewIrmaTotal"
         android:layout_width="129dp"
         android:layout_height="47dp"
         android:layout_marginEnd="8dp"
@@ -158,13 +158,13 @@
         android:inputType="number"
         android:text="0"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextAgnesTotal"
+        app:layout_constraintEnd_toEndOf="@+id/textViewAgnesTotal"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextAgnesTotal"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAgnesTotal" />
+        app:layout_constraintStart_toStartOf="@+id/textViewAgnesTotal"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAgnesTotal" />
 
-    <EditText
-        android:id="@+id/editTextPetuniaTotal"
+    <TextView
+        android:id="@+id/textViewPetuniaTotal"
         android:layout_width="129dp"
         android:layout_height="47dp"
         android:layout_marginEnd="8dp"
@@ -173,13 +173,13 @@
         android:inputType="number"
         android:text="0"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextIrmaTotal"
+        app:layout_constraintEnd_toEndOf="@+id/textViewIrmaTotal"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextIrmaTotal"
-        app:layout_constraintTop_toBottomOf="@+id/editTextIrmaTotal" />
+        app:layout_constraintStart_toStartOf="@+id/textViewIrmaTotal"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIrmaTotal" />
 
-    <EditText
-        android:id="@+id/editTextAgnesTotal"
+    <TextView
+        android:id="@+id/textViewAgnesTotal"
         android:layout_width="129dp"
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
@@ -192,4 +192,30 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/numberAddEggsCount"
         app:layout_constraintTop_toBottomOf="@+id/numberAddEggsCount" />
+
+    <Button
+        android:id="@+id/buttonClearDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Clear DB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewLongPress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/textViewLongPress"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
