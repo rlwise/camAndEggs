@@ -18,44 +18,58 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
 
     // Define static constants for table & columns names (all column headers are Strings)
     private static final String TABLE_CHICKENS = "chickens";
+    private static final String TABLE_WEBCAMSERVER = "webcamserver";
 
     // Chicken Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_BREED = "breed";
     private static final String KEY_NAME = "name";
     private static final String KEY_EGGS = "eggs";
+    private static final String[] CHICKENS_COLUMNS = {KEY_ID, KEY_BREED, KEY_NAME, KEY_EGGS};
 
-    private static final String[] COLUMNS = {KEY_ID,KEY_BREED,KEY_NAME, KEY_EGGS};
+    //webcam server table columns names
+    private static final String KEY_SERVER_ID = "id";
+    private static final String KEY_SERVER_LOCATION = "location";
+    private static final String KEY_SERVER_PATH = "path";
+    private static final String[] SERVER_COLUMNS = {KEY_SERVER_ID, KEY_SERVER_LOCATION, KEY_SERVER_PATH};
 
 
     //database version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;  //change this value when making changes to the DB structure.
 
     //database Name
-    private static final String DATABASE_NAME = "CamdAndEggsDB";
+    private static final String DATABASE_NAME = "CamAndEggsDB";
 
-    public CamAndEggsSQLiteHelper(Context context){
+    public CamAndEggsSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     //create the chicken table with datatypes for each column
     @Override
-    public void onCreate(SQLiteDatabase db){
-        // SQL statement to create book table
+    public void onCreate(SQLiteDatabase db) {
+        // SQL statement to create chicken table
         String CREATE_CHICKEN_TABLE = "CREATE TABLE chickens ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "breed TEXT, "+
-                "name TEXT, "+
+                "breed TEXT, " +
+                "name TEXT, " +
                 "eggs INTEGER DEFAULT 0)";
 
-        // create books table
+        // create chickens table
         db.execSQL(CREATE_CHICKEN_TABLE);
+
+        //SQL Statement to create a webcam server table
+        String CREATE_WEBCAM_TABLE = "CREATE TABLE webcamserver ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "location TEXT, " +
+                "path TEXT)";
+        db.execSQL(CREATE_WEBCAM_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older chicken table if existed
         db.execSQL("DROP TABLE IF EXISTS chickens");
+        db.execSQL("DROP TABLE IF EXISTS webcamserver");
 
         // create fresh chickens table
         this.onCreate(db);
@@ -70,10 +84,13 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
      *   update(Chicken chicken)
      *   delete(Chicken chicken)
      *
+     *   addServer(WebCamServer server)
+     *   getServer(String location)  //i.e. 'private' for LAN address
+     *
      ***********************************************************/
 
     //Create a chicken entry in the DB from the Chicken.class --addChicken()
-    public void addChicken(Chicken chicken){
+    public void addChicken(Chicken chicken) {
         //for logging
         Log.d("addChicken", chicken.toString());
 
@@ -96,7 +113,7 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
     }
 
     //Read -- get a Chicken object
-    public Chicken getChicken(String name){
+    public Chicken getChicken(String name) {
 
         // 1. get reference to readable DB
         SQLiteDatabase db = this.getReadableDatabase();
@@ -104,9 +121,9 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(TABLE_CHICKENS, // a. table
-                        COLUMNS, // b. column names
+                        CHICKENS_COLUMNS, // b. column names
                         " name = ?", // c. selections
-                        new String[] { String.valueOf(name) }, // d. selections args
+                        new String[]{String.valueOf(name)}, // d. selections args
                         null, // e. group by
                         null, // f. having
                         null, // g. order by
@@ -124,7 +141,7 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
         chicken.setEggs(Integer.parseInt(cursor.getString(3)));
 
         //log
-        Log.d("getChicken("+name+")", chicken.toString());
+        Log.d("getChicken(" + name + ")", chicken.toString());
 
         // 5. return chicken
         return chicken;
@@ -177,8 +194,8 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
         // 3. updating row
         int i = db.update(TABLE_CHICKENS, //table
                 values, // column/value
-                KEY_ID+" = ?", // selections
-                new String[] { String.valueOf(chicken.getId()) }); //selection args
+                KEY_ID + " = ?", // selections
+                new String[]{String.valueOf(chicken.getId())}); //selection args
 
         // 4. close
         db.close();
@@ -195,8 +212,8 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
 
         // 2. delete
         db.delete(TABLE_CHICKENS, //table name
-                KEY_ID+" = ?",  // selections
-                new String[] { String.valueOf(chicken.getId()) }); //selections args
+                KEY_ID + " = ?",  // selections
+                new String[]{String.valueOf(chicken.getId())}); //selections args
 
         // 3. close
         db.close();

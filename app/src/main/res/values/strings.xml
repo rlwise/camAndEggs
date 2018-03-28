@@ -61,10 +61,8 @@
         <item>Entry 3</item>
     </string-array>
 
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+    <string-array name="serverAddresses">
+        <item>192.168.1.229</item>
     </string-array>
 
     <string-array name="multi_select_list_preference_default_value" />
@@ -81,4 +79,11 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="textViewLongPress">Long press to subtract an egg.</string>
+    <string name="editTextServerAddress">192.168.1.229</string>
+    <string name="labelServerIP">Server Address</string>
+    <string name="buttonSettingsSave">Save</string>
+    <string name="titleSettings">Settings</string>
+    <string name="title_activity_settings2">Settings2Activity</string>
+    <string name="buttonRefresh">Refresh Cam</string>
+    <string name="deleteIP">Delete</string>
 </resources>

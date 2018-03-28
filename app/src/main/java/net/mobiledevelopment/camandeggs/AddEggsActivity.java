@@ -15,9 +15,6 @@ public class AddEggsActivity extends MainActivity {
     public int eggTotal = 0;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,6 +1,7 @@
 package net.mobiledevelopment.camandeggs;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,21 +11,92 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
     public WebView webViewCam;
+    public String urlString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Button reloadCam = findViewById(R.id.buttonRefresh);
+        final Spinner spinner = findViewById(R.id.spinner);
+        final Button addIP = findViewById(R.id.buttonAddIPAddress);
+        final Button deleteIP = findViewById(R.id.buttonDeleteIP);
+        final EditText addIPText = findViewById(R.id.editTextAddIPaddress);
+
+        //String array to hold IP's added/deleted programmatitcally
+        String[] ipaddresses = new String[]{
+                "192.168.1.229",
+        };
+
+        final List<String> ipList = new ArrayList<>(Arrays.asList(ipaddresses));
+
+        //initalize an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this, R.layout.support_simple_spinner_dropdown_item,ipList);
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+
+        addIP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String toBeAdded = addIPText.getText().toString();
+                if(ipList.contains(toBeAdded)){
+                    Message.message(getApplicationContext(), "Address already exists");
+                }
+                else{
+                    ipList.add(toBeAdded);
+                    spinnerArrayAdapter.notifyDataSetChanged();
+                    Message.message(getApplicationContext(), "Address added!");
+                }
+                addIPText.setText("");
+            }
+        });
+
+        //delete address from Spinner
+        deleteIP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String toBeDeleted = spinner.getSelectedItem().toString();
+                ipList.remove(toBeDeleted);
+                spinnerArrayAdapter.notifyDataSetChanged();
+                Message.message(getApplicationContext(), "Address removed!");
+            }
+        });
+
 
         //get reference to cam1 widget id (doesn't handle authentication)
         webViewCam = findViewById(R.id.cam1);
-        webViewCam.loadUrl("http://192.168.1.229/Status.php");
+        urlString = "http://" + spinner.getSelectedItem() + "/Status.php";
+        webCamLoad(webViewCam, urlString);
+
+        //buttonlistener
+        reloadCam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                urlString = "http://" + spinner.getSelectedItem().toString() + "/Status.php";
+                webCamLoad(webViewCam, urlString);
+            }
+        });
+
+
 
 
         //add Eggs Floating Button
@@ -42,10 +114,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }//end onCreate
 
-    //clear DB button
+    //load webcam
+    public void webCamLoad(WebView wv, String url) {
+        //wv.destroy();
+        webViewCam.loadUrl(url);
+        Message.message(getApplicationContext(), "WebCam address changed.");
+    }
+
 
 
 
@@ -67,11 +144,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
-        else if (id == R.id.action_addEggs) {
+        if (id == R.id.action_addEggs) {
             webViewCam.destroy();    //kill the connection to the server
             startActivity(new Intent(MainActivity.this, AddEggsActivity.class));
             finish();
