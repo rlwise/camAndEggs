@@ -1,7 +1,7 @@
 package net.mobiledevelopment.camandeggs;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,21 +11,20 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.MediaController;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 
 
 public class MainActivity extends AppCompatActivity {
     public WebView webViewCam;
     public String urlString;
-
+    public String homeDomain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,69 +33,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button reloadCam = findViewById(R.id.buttonRefresh);
-        final Spinner spinner = findViewById(R.id.spinner);
-        final Button addIP = findViewById(R.id.buttonAddIPAddress);
-        final Button deleteIP = findViewById(R.id.buttonDeleteIP);
-        final EditText addIPText = findViewById(R.id.editTextAddIPaddress);
-
-        //String array to hold IP's added/deleted programmatitcally
-        String[] ipaddresses = new String[]{
-                "192.168.1.229",
-        };
-
-        final List<String> ipList = new ArrayList<>(Arrays.asList(ipaddresses));
-
-        //initalize an ArrayAdapter
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, R.layout.support_simple_spinner_dropdown_item,ipList);
-
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerArrayAdapter);
-
-        addIP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String toBeAdded = addIPText.getText().toString();
-                if(ipList.contains(toBeAdded)){
-                    Message.message(getApplicationContext(), "Address already exists");
-                }
-                else{
-                    ipList.add(toBeAdded);
-                    spinnerArrayAdapter.notifyDataSetChanged();
-                    Message.message(getApplicationContext(), "Address added!");
-                }
-                addIPText.setText("");
-            }
-        });
-
-        //delete address from Spinner
-        deleteIP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String toBeDeleted = spinner.getSelectedItem().toString();
-                ipList.remove(toBeDeleted);
-                spinnerArrayAdapter.notifyDataSetChanged();
-                Message.message(getApplicationContext(), "Address removed!");
-            }
-        });
-
 
         //get reference to cam1 widget id (doesn't handle authentication)
         webViewCam = findViewById(R.id.cam1);
-        urlString = "http://" + spinner.getSelectedItem() + "/Status.php";
+        homeDomain = "camandeggs.hopto.org";
+        urlString = "http://" + homeDomain + "/Status.php";
         webCamLoad(webViewCam, urlString);
-
-        //buttonlistener
-        reloadCam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                urlString = "http://" + spinner.getSelectedItem().toString() + "/Status.php";
-                webCamLoad(webViewCam, urlString);
-            }
-        });
-
-
 
 
         //add Eggs Floating Button
@@ -108,13 +50,14 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 Intent addEggsIntent = new Intent(MainActivity.this, AddEggsActivity.class);
                 //startActivity(new Intent(MainActivity.this, AddEggsActivity.class));
+                finish();
                 startActivity(addEggsIntent);
-
             }
         });
 
-
     }//end onCreate
+
+
 
     //load webcam
     public void webCamLoad(WebView wv, String url) {

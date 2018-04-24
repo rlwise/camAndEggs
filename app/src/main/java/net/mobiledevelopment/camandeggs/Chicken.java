@@ -11,7 +11,7 @@ public class Chicken {
     private int eggs;
 
     //constructors
-    public Chicken(){};
+    public Chicken(){}
 
     public Chicken(String breed, String name, int eggs){
         super();
@@ -54,6 +54,6 @@ public class Chicken {
 
     @Override
     public String toString(){
-        return "Chicken [id=" + id + ", breed=" + breed + ", name=" + name + ", eggs=" + eggs + "]";
+        return "Server [id=" + id + ", breed=" + breed + ", name=" + name + ", eggs=" + eggs + "]";
     }
 }
