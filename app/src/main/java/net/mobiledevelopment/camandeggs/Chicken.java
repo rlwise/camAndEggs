@@ -54,6 +54,6 @@ public class Chicken {
 
     @Override
     public String toString(){
-        return "Server [id=" + id + ", breed=" + breed + ", name=" + name + ", eggs=" + eggs + "]";
+        return "Chicken [id=" + id + ", breed=" + breed + ", name=" + name + ", eggs=" + eggs + "]";
     }
 }

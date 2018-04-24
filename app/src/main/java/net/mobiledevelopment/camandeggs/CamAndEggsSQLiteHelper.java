@@ -18,7 +18,6 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
 
     // Define static constants for table & columns names (all column headers are Strings)
     private static final String TABLE_CHICKENS = "chickens";
-    private static final String TABLE_SERVER = "server";
 
     // Server Table Columns names
     private static final String KEY_ID = "id";
@@ -27,14 +26,9 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
     private static final String KEY_EGGS = "eggs";
     private static final String[] CHICKENS_COLUMNS = {KEY_ID, KEY_BREED, KEY_NAME, KEY_EGGS};
 
-    //webcam server table columns names
-    private static final String KEY_SERVER_ID = "id";
-    private static final String KEY_SERVER_IP= "ip";
-    private static final String[] SERVER_COLUMNS = {KEY_SERVER_ID, KEY_SERVER_IP};
-
 
     //database version
-    private static final int DATABASE_VERSION = 3;  //change this value when making changes to the DB structure.
+    private static final int DATABASE_VERSION = 5;  //change this value when making changes to the DB structure.
 
     //database Name
     private static final String DATABASE_NAME = "CamAndEggsDB";
@@ -55,19 +49,12 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
 
         // create chickens table
         db.execSQL(CREATE_CHICKEN_TABLE);
-
-        //SQL Statement to create a webcam server table
-        String CREATE_SERVER_TABLE = "CREATE TABLE server ( " +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "ip TEXT)";
-        db.execSQL(CREATE_SERVER_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older chicken table if existed
         db.execSQL("DROP TABLE IF EXISTS chickens");
-        db.execSQL("DROP TABLE IF EXISTS server");
 
         // create fresh chickens table
         this.onCreate(db);
@@ -82,8 +69,6 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
      *   update(Chicken chicken)
      *   delete(Chicken chicken)
      *
-     *   addServer(Server server)
-     *   deleteServer(Server server)
      *
      ***********************************************************/
 
@@ -219,78 +204,6 @@ public class CamAndEggsSQLiteHelper extends SQLiteOpenHelper {
         //log
         Log.d("deleteChicken", chicken.toString());
 
-    }
-
-    //create a server and add it
-    public void addServer(Server server) {
-        //for logging
-        Log.d("addServer", server.toString());
-
-        // 1. get reference to writable DB
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        // 2. create ContentValues to add key "column"/value
-        ContentValues values = new ContentValues();
-        values.put(KEY_SERVER_IP, server.getIP()); // getter from Server.java
-
-        // 3. insert
-        db.insert(TABLE_SERVER, // table
-                null, //nullColumnHack
-                values); // key/value -> keys = column names/ values = column values
-
-        // 4. close
-        db.close();
-    }
-
-    //delete a server
-    public void deleteServer(Server server) {
-
-        // 1. get reference to writable DB
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        // 2. delete
-        db.delete(TABLE_SERVER, //table name
-                KEY_ID + " = ?",  // selections
-                new String[]{String.valueOf(server.getId())}); //selections args
-
-        // 3. close
-        db.close();
-
-        //log
-        Log.d("deleteServer", server.toString());
-
-    }
-
-    //get allServers
-    //REad -- get all chickens
-    public List<Server> getAllServers() {
-        List<Server> servers = new LinkedList<Server>();
-
-        // 1. build the query
-        String query = "SELECT  * FROM " + TABLE_SERVER;
-
-        // 2. get reference to writable DB
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        // 3. go over each row, build chicken and add it to list
-        Server server = null;
-        if (cursor.moveToFirst()) {
-            do {
-                server = new Server();
-                server.setId(Integer.parseInt(cursor.getString(0)));
-                server.setIP(cursor.getString(1));
-
-
-                // Add chicken to chickens
-                servers.add(server);
-            } while (cursor.moveToNext());
-        }
-
-        Log.d("getAllServers()", servers.toString());
-
-        // return chickens
-        return servers;
     }
 
 }

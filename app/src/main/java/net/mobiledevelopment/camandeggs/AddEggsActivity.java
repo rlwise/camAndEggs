@@ -138,7 +138,7 @@ public class AddEggsActivity extends MainActivity {
                 db.updateChicken(irma);
                 irmaTotalTextView.setText(Integer.toString(irma.getEggs()));
                 updateEggTotal(agnes, irma, petunia);
-                Message.message(getApplicationContext(), irma.getName() + " subtracted an egg!");
+                //Message.message(getApplicationContext(), irma.getName() + " subtracted an egg!");
                 return true;
             }
         });
@@ -153,7 +153,7 @@ public class AddEggsActivity extends MainActivity {
                 db.updateChicken(petunia);
                 petuniaTotalTextView.setText(Integer.toString(petunia.getEggs()));
                 updateEggTotal(agnes, irma, petunia);
-                Message.message(getApplicationContext(), petunia.getName() + " added an egg!");
+                //Message.message(getApplicationContext(), petunia.getName() + " added an egg!");
             }
         }); //end agnes add egg button
 
@@ -169,7 +169,7 @@ public class AddEggsActivity extends MainActivity {
                 db.updateChicken(petunia);
                 petuniaTotalTextView.setText(Integer.toString(petunia.getEggs()));
                 updateEggTotal(agnes, irma, petunia);
-                Message.message(getApplicationContext(), petunia.getName() + " subtracted an egg!");
+                //Message.message(getApplicationContext(), petunia.getName() + " subtracted an egg!");
                 return true;
             }
         });

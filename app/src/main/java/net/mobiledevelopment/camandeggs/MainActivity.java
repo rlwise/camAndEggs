@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -33,12 +34,26 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //init db
+        final CamAndEggsSQLiteHelper db = new CamAndEggsSQLiteHelper(this);
+
 
         //get reference to cam1 widget id (doesn't handle authentication)
         webViewCam = findViewById(R.id.cam1);
         homeDomain = "camandeggs.hopto.org";
         urlString = "http://" + homeDomain + "/Status.php";
         webCamLoad(webViewCam, urlString);
+
+        //display egg total summary
+        TextView agnesEggs = findViewById(R.id.textViewMainAgnesEggs);
+        TextView irmaEggs = findViewById(R.id.textViewMainIrmaEggs);
+        TextView petuniaEggs = findViewById(R.id.textViewMainPetuniaEggs);
+        Chicken agnes = db.getChicken("Agnes");
+        Chicken irma = db.getChicken("Irma");
+        Chicken petunia = db.getChicken("Petunia");
+        agnesEggs.setText(Integer.toString(agnes.getEggs()));
+        irmaEggs.setText(Integer.toString(irma.getEggs()));
+        petuniaEggs.setText(Integer.toString(petunia.getEggs()));
 
 
         //add Eggs Floating Button
@@ -63,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public void webCamLoad(WebView wv, String url) {
         //wv.destroy();
         webViewCam.loadUrl(url);
-        Message.message(getApplicationContext(), "WebCam address changed.");
+        //Message.message(getApplicationContext(), "WebCam address changed.");
     }
 
 
