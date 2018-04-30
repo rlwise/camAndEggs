@@ -44,9 +44,9 @@ public class AddEggsActivity extends MainActivity {
         *  CRUD operations
         *
         * ******************/
-        db.addChicken(new Chicken("Barred Rock", "Agnes", 0));
-        db.addChicken(new Chicken("Buff Orpington", "Irma", 0));
-        db.addChicken(new Chicken("Buff Orpington", "Petunia", 0));
+        //db.addChicken(new Chicken("Barred Rock", "Agnes", 0));
+        //db.addChicken(new Chicken("Buff Orpington", "Irma", 0));
+        //db.addChicken(new Chicken("Buff Orpington", "Petunia", 0));
 
         final Chicken agnes = db.getChicken("Agnes");
         final Chicken irma = db.getChicken("Irma");
@@ -87,7 +87,7 @@ public class AddEggsActivity extends MainActivity {
 
                 agnesTotalTextView.setText(Integer.toString(agnes.getEggs()));
                 updateEggTotal(agnes, irma, petunia);
-                Message.message(getApplicationContext(), agnes.getName() + " added an egg!");
+                //Message.message(getApplicationContext(), agnes.getName() + " added an egg!");
             }
         }); //end agnes add egg button
 
@@ -106,7 +106,7 @@ public class AddEggsActivity extends MainActivity {
                 db.updateChicken(agnes);
                 agnesTotalTextView.setText(Integer.toString(agnes.getEggs()));
                 updateEggTotal(agnes, irma, petunia);
-                Message.message(getApplicationContext(), agnes.getName() + " subtracted an egg!");
+                //Message.message(getApplicationContext(), agnes.getName() + " subtracted an egg!");
                 return true;
             }
         });
@@ -122,7 +122,7 @@ public class AddEggsActivity extends MainActivity {
                 db.updateChicken(irma);
                 irmaTotalTextView.setText(Integer.toString(irma.getEggs()));
                 updateEggTotal(agnes, irma, petunia);
-                Message.message(getApplicationContext(), irma.getName() + " added an egg!");
+                //Message.message(getApplicationContext(), irma.getName() + " added an egg!");
             }
         }); //end agnes add egg button
 

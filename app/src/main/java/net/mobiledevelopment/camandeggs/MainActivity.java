@@ -11,14 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
-import android.widget.ArrayAdapter;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -36,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
         //init db
         final CamAndEggsSQLiteHelper db = new CamAndEggsSQLiteHelper(this);
+        db.addChicken(new Chicken("Barred Rock", "Agnes", 0));
+        db.addChicken(new Chicken("Buff Orpington", "Irma", 0));
+        db.addChicken(new Chicken("Buff Orpington", "Petunia", 0));
+
 
 
         //get reference to cam1 widget id (doesn't handle authentication)
@@ -54,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         agnesEggs.setText(Integer.toString(agnes.getEggs()));
         irmaEggs.setText(Integer.toString(irma.getEggs()));
         petuniaEggs.setText(Integer.toString(petunia.getEggs()));
+        db.close();
+
 
 
         //add Eggs Floating Button
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     //load webcam
     public void webCamLoad(WebView wv, String url) {
         //wv.destroy();
-        webViewCam.loadUrl(url);
+        wv.loadUrl(url);
         //Message.message(getApplicationContext(), "WebCam address changed.");
     }
 
@@ -104,14 +103,21 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
 
         if (id == R.id.action_addEggs) {
-            webViewCam.destroy();    //kill the connection to the server
-            startActivity(new Intent(MainActivity.this, AddEggsActivity.class));
-            finish();
+            //webViewCam.destroy();    //kill the connection to the server
+            startActivity(new Intent(this, AddEggsActivity.class));
+            //finish();
         }
 
         else if (id == R.id.action_home){
-            startActivity(new Intent(MainActivity.this, MainActivity.class));
-            finish();
+            startActivity(new Intent(this, MainActivity.class));
+
+            //finish();
+        }
+
+        else if (id ==R.id.action_profile){
+            startActivity(new Intent(this, ChickenBioActivity.class));
+
+            //finish();
         }
 
         return super.onOptionsItemSelected(item);

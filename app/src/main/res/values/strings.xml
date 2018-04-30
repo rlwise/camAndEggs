@@ -86,4 +86,5 @@
     <string name="title_activity_settings2">Settings2Activity</string>
     <string name="buttonRefresh">Refresh Cam</string>
     <string name="deleteIP">Delete</string>
+    <string name="title_activity_chicken_bio">ChickenBioActivity</string>
 </resources>
