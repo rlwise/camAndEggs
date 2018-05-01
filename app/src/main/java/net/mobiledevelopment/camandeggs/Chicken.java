@@ -11,7 +11,7 @@ public class Chicken {
     private int eggs;
 
     //constructors
-    public Chicken(){};
+    public Chicken(){}
 
     public Chicken(String breed, String name, int eggs){
         super();

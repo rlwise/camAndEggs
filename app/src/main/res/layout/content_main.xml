@@ -19,63 +19,76 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="291dp"
-        android:layout_height="54dp"
+    <TextView
+        android:id="@+id/textViewMainAgnesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:background="@android:drawable/spinner_dropdown_background"
-        android:elevation="0dp"
-        android:entries="@array/serverAddresses"
-        android:textAlignment="center"
-        android:visibility="visible"
+        android:layout_marginTop="36dp"
+        android:text="Agnes Eggs"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cam1" />
 
-    <Button
-        android:id="@+id/buttonRefresh"
+    <TextView
+        android:id="@+id/textViewMainIrmaLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/buttonRefresh"
-        app:layout_constraintEnd_toEndOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
-    <Button
-        android:id="@+id/buttonDeleteIP"
-        android:layout_width="122dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/deleteIP"
-        app:layout_constraintEnd_toStartOf="@+id/buttonRefresh"
+        android:layout_marginTop="84dp"
+        android:text="Irma Eggs"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/cam1" />
 
-    <EditText
-        android:id="@+id/editTextAddIPaddress"
+    <TextView
+        android:id="@+id/textViewMainAgnesEggs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="28dp"
-        android:background="?android:attr/editTextBackground"
-        android:ems="10"
-        android:hint="add IP address"
-        android:inputType="textPersonName"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toEndOf="@+id/textViewMainAgnesLabel"
         app:layout_constraintTop_toBottomOf="@+id/cam1" />
 
-    <Button
-        android:id="@+id/buttonAddIPAddress"
+    <TextView
+        android:id="@+id/textViewMainIrmaEggs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Add"
-        app:layout_constraintStart_toStartOf="@+id/editTextAddIPaddress"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddIPaddress" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintStart_toEndOf="@+id/textViewMainIrmaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/cam1" />
+
+    <TextView
+        android:id="@+id/textViewPetuniaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="124dp"
+        android:text="Petunia Eggs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cam1" />
+
+    <TextView
+        android:id="@+id/textViewMainPetuniaEggs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="124dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toEndOf="@+id/textViewPetuniaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/cam1" />
 
 </android.support.constraint.ConstraintLayout>
