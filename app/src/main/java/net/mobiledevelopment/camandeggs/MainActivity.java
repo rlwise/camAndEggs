@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         //get reference to cam1 widget id (doesn't handle authentication)
         webViewCam = findViewById(R.id.cam1);
-        homeDomain = "camandeggs.hopto.org";
+        homeDomain = "192.168.1.229";    //raspi w/ pi cam using u4vl and nginx webserver.
         urlString = "http://" + homeDomain + "/Status.php";
         webCamLoad(webViewCam, urlString);
 
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
     //load webcam
     public void webCamLoad(WebView wv, String url) {
-        //wv.destroy();
         wv.loadUrl(url);
         //Message.message(getApplicationContext(), "WebCam address changed.");
     }
